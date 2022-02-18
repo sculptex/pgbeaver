@@ -9,22 +9,28 @@ Postgres Log Analyser Tool
 
 ## Command Line Usage
 
-###  -certpath string
-        path to certificate (if https proto specified) (default "/etc/ssl/certs/certificate.crt")
-###  -debug
-        Debug true/false
-###  -keypath string
-        path to key (if https proto specified) (default "/etc/ssl/private/certificate.key")
-###  -logpath string
+####  -logpath string
         Log Path (default "/var/log/postgresql/")
-###  -password string
-        Password
-###  -port string
+####  -port string
         Port Number (default 5045) (default "5045")
-###  -proto string
-        http | https (default http) (default "http")
-###  -username string
-        Username
 
-## Browser Useage
+### FOR CLI DEBUG INFO
+####  -debug
+        Debug true/false
+
+### FOR USER AUTHENTICATION
+####  -username string
+        Username
+####  -password string
+        Password
+
+### FOR SSL
+####  -proto string
+        http | https (default http) (default "http")
+####  -certpath string
+        path to certificate (if https proto specified) (default "/etc/ssl/certs/certificate.crt")
+####  -keypath string
+        path to key (if https proto specified) (default "/etc/ssl/private/certificate.key")
+
+## Browser Usage
   http://localhost:5045/?username=user&password=pass&whitelist=reference_objects
