@@ -17,7 +17,7 @@ import (
     "path/filepath"
 )
 
-const version = "0.0.1"
+const version = "0.0.2"
 
 const pgbadgerimgurl = "https://pgbadger.darold.net/logo_pgbadger.png"
 
@@ -25,6 +25,7 @@ var configfile string
 var allocationfile string
 var walletfile string
 var debug bool
+var allowdelete bool
 
 var username string
 var password string
@@ -277,7 +278,7 @@ func main() {
 					}
 					fmt.Fprintf(w, "<button title='Download Log' class='btn btn-light btn-sm' onclick='ifr.src=\"%s\";'><i class='bi-file-earmark-arrow-down'></i></button>", "/log/"+logfile)
 					fmt.Fprintf(w, "<button title='Scan Log' class='btn btn-beaver btn-success btn-sm' onclick='ifr.src=\"/message/?message=Generating_Report..\"; setTimeout(function(){ var w = document.getElementById(\"whitelist\").value; var b = document.getElementById(\"blacklist\").value; ifr.src=\"%s?whitelist=\"+w+\"&blacklist=\"+b;},100);'><i class='bi-list-check'></i></button>", "/scan/"+logfile)
-					if( (len(u)>0) && (len(p)>0) ) {
+					if( allowdelete || ((len(u)>0) && (len(p)>0)) ) {
 						fmt.Fprintf(w, "<button title='Delete Log' class='btn btn-danger btn-sm' onclick='ifr.src=\"%s\"; setTimeout(() => { window.location.reload() }, 500);'><i class='bi-folder-x'></i></button>", "/del/"+htmfile)
 					}	
 
@@ -905,6 +906,9 @@ func main() {
 
 		// Debug    
 		debugptr := flag.Bool("debug", false, "Debug true/false")
+
+		// Allow Delete    
+		allowdeleteptr := flag.Bool("allowdelete", false, "Allow Log File Deletion true/false")
 		
 		// If https protocol selected, must specify certpath & keypath
 		var certpath string
@@ -916,6 +920,7 @@ func main() {
 		
 		// eval to global var
 		debug = *debugptr
+		allowdelete = *allowdeleteptr
 		
 		// Advise listening on port
 		fmt.Println("Listening on port: ", port, ", username: ", username, ", password: ", password)
